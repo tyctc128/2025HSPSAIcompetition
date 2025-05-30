@@ -277,13 +277,9 @@
             document.getElementById('passwordOverlay').style.display = 'none';
         }
         
-        // 使用 SHA-256 進行密碼雜湊和驗證的函數
         async function sha256(message) {
-            // 將字符串轉換為 ArrayBuffer
             const msgBuffer = new TextEncoder().encode(message);
-            // 使用 SubtleCrypto API 進行雜湊
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-            // 將 ArrayBuffer 轉換為十六進制字符串
             const hashArray = Array.from(new Uint8Array(hashBuffer));
             const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
             return hashHex;
@@ -291,18 +287,13 @@
         
         async function checkPassword() {
             const password = document.getElementById('passwordInput').value;
-            // 計算輸入密碼的 SHA-256 雜湊值
             const passwordHash = await sha256(password);
-            // 正確密碼的 SHA-256 雜湊值
             const correctPasswordHash = 'bdd542b1815928f565b68d9a40cc008c2034ab7faa2aa52f032f06e1b3bb37dc';
             
             if (passwordHash === correctPasswordHash) {
-                // 密碼正確，隱藏密碼輸入界面
                 document.getElementById('passwordOverlay').style.display = 'none';
-                // 儲存密碼驗證狀態到 sessionStorage
                 sessionStorage.setItem('passwordVerified', 'true');
             } else {
-                // 密碼錯誤，顯示錯誤訊息
                 document.getElementById('errorMessage').style.display = 'block';
                 document.getElementById('passwordInput').value = '';
             }
