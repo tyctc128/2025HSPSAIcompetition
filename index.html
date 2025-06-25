@@ -7,75 +7,10 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <style>
-        #passwordOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-        
-        .password-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-        }
-        
-        .password-container h2 {
-            margin-top: 0;
-            color: #333;
-        }
-        
-        .password-container input {
-            width: 100%;
-            padding: 10px;
-            margin: 15px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        
-        .password-container button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        
-        .password-container button:hover {
-            background-color: #45a049;
-        }
-        
-        .password-container .error-message {
-            color: red;
-            margin-top: 10px;
-            display: none;
-        }
-    </style>
+    <!-- 密碼驗證樣式已移除 -->
 </head>
 <body>
-    <div id="passwordOverlay">
-        <div class="password-container">
-            <h2>請輸入密碼</h2>
-            <p>請輸入密碼以瀏覽新北市板橋區海山國小參賽作品集</p>
-            <input type="password" id="passwordInput" placeholder="請輸入密碼">
-            <div class="error-message" id="errorMessage">密碼錯誤，請重新輸入</div>
-            <button onclick="checkPassword().catch(error => console.error('密碼驗證過程中發生錯誤:', error))">確認</button>
-        </div>
-    </div>
+    <!-- 密碼驗證已移除 -->
     
     <div class="tech-background"></div>
     
@@ -267,46 +202,9 @@
 
     <script src="script.js"></script>
     <script>
-        // 檢查是否已經通過密碼驗證
-        function checkPasswordSession() {
-            return sessionStorage.getItem('passwordVerified') === 'true';
-        }
-        
-        // 如果已經通過密碼驗證，隱藏密碼輸入界面
-        if (checkPasswordSession()) {
-            document.getElementById('passwordOverlay').style.display = 'none';
-        }
-        
-        async function sha256(message) {
-            const msgBuffer = new TextEncoder().encode(message);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-            return hashHex;
-        }
-        
-        async function checkPassword() {
-            const password = document.getElementById('passwordInput').value;
-            const passwordHash = await sha256(password);
-            const correctPasswordHash = 'bdd542b1815928f565b68d9a40cc008c2034ab7faa2aa52f032f06e1b3bb37dc';
-            
-            if (passwordHash === correctPasswordHash) {
-                document.getElementById('passwordOverlay').style.display = 'none';
-                sessionStorage.setItem('passwordVerified', 'true');
-            } else {
-                document.getElementById('errorMessage').style.display = 'block';
-                document.getElementById('passwordInput').value = '';
-            }
-        }
-        
-        // 添加按下 Enter 鍵提交密碼的功能
-        document.getElementById('passwordInput').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                checkPassword().catch(error => {
-                    console.error('密碼驗證過程中發生錯誤:', error);
-                });
-            }
-        });
+        // 密碼驗證功能已移除
+        // 設定 sessionStorage 以確保其他可能依賴此變數的功能正常運作
+        sessionStorage.setItem('passwordVerified', 'true');
     </script>
 </body>
 </html>
